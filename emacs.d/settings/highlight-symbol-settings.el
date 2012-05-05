@@ -21,7 +21,8 @@
   (defun highlight-symbol-mode-on ()
     "Turn on function `highlight-symbol-mode'."
     (if window-system
-        (highlight-symbol-mode 1)))
+        (highlight-symbol-mode 1))
+    (highlight-symbol-mode 1))
 
   (defun highlight-symbol-mode-off ()
     "Turn off function `highlight-symbol-mode'."
