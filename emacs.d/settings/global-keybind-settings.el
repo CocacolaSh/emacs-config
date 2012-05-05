@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/settings")
+;;(add-to-list 'load-path "~/.emacs.d/settings")
 ;;==============================================================================
 ;;Global快捷键设置
 ;;==============================================================================
@@ -92,7 +92,7 @@
 (global-set-key (kbd "C-c k") 'go-to-other-window-and-close-this-one)
 
 (defun copy-current-buffer()
-  "Copy crerent buffer to kill ring : by Chen Yukang"
+  "Copy crerent buffer to kill ring"
   (interactive)
   (setq position (point))
   (kill-ring-save (point-min) (point-max))
@@ -105,10 +105,8 @@
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
-(global-set-key (kbd "C-c l") 'ecba)
-(add-to-list 'load-path "~/.emacs.d/ecb")
 
-(add-to-list 'load-path "~/.emacs.d/ecb")
+(add-to-list 'load-path "~/emacsconfig/emacs.d/plugins/ecb")
 (defun ecba ();需要的时候加载 ecb 和 cedet
   (interactive "")
   (when (locate-library "ecb")

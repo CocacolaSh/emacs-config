@@ -12,9 +12,6 @@
 ;;禁用启动画面
 (setq inhibit-startup-message t)
 
-;;设置字体大小 参考http://www.linuxsir.org/bbs/thread326299.html
-;;(set-default-font "-unknown-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-(add-to-list 'default-frame-alist '(font, "-unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1"))
 
 ;;设定启动时窗口大小
 (setq default-frame-alist 

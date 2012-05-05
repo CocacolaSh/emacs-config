@@ -17,6 +17,6 @@ chinese-gb18030:-*-wenquanyi bitmap song-medium-*-normal--15-*-*-*-*-*-iso10646-
 (modify-coding-system-alist 'process "*" 'utf-8)
 (setq default-process-coding-system '(utf-8 . utf-8))
 (setq-default pathname-coding-system 'utf-8)
-(set-file-name-coding-system 'gbk)
+(set-file-name-coding-system 'utf-8)
 (setq ansi-color-for-comint-mode t)
 (provide 'language-settings)
