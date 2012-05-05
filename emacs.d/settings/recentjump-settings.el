@@ -1,0 +1,6 @@
+(setq rj-ring-length 10000)
+(require 'recent-jump)
+(global-set-key (kbd "M-,") 'recent-jump-backward)
+(global-set-key (kbd "M-.") 'recent-jump-forward)
+(recent-jump-mode t)
+(provide 'recentjump-settings)
