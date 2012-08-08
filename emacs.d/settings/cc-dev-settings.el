@@ -1,4 +1,3 @@
-
 ;;========================= programming ===============================
 ;;;;我的C/C++语言编辑策略
 ;; 和对应头文件之间的相互跳转。
@@ -40,7 +39,7 @@
   ;;(define-key c-mode-base-map [(f7)] 'compile)
   ;;(define-key c-mode-base-map [(f8)] 'ff-get-other-file)
   (define-key c-mode-base-map [(meta \`)] 'c-indent-command)
-  ;;  (define-key c-mode-base-map [(tab)] 'hippie-expand)
+  ;; (define-key c-mode-base-map [(tab)] 'hippie-expand)
   (define-key c-mode-base-map [(\M o)] 'go-to-include-file)
   (define-key c-mode-base-map [(\M g)] 'cscope-find-global-definition)
   (define-key c-mode-base-map [(\M S)] 'cscope-find-this-symbol)
@@ -65,7 +64,7 @@
   (c-set-style "stroustrup")
   (define-key c-mode-base-map (kbd "C-c h") 'hs-hide-block)
   (define-key c-mode-base-map (kbd "C-c u") 'hs-show-block)
-  ;;  (define-key c++-mode-map [f3] 'replace-regexp)
+  ;; (define-key c++-mode-map [f3] 'replace-regexp)
   )
 
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
@@ -94,11 +93,11 @@ original buffer content
 "
   (interactive)
   (setq file-macro
-	(concat (replace-regexp-in-string "\\." "_" (concat "_" (upcase (file-name-nondirectory buffer-file-name))))))
+(concat (replace-regexp-in-string "\\." "_" (concat "_" (upcase (file-name-nondirectory buffer-file-name))))))
   (setq guard-begin (concat "#ifndef " file-macro "\n"
-			    "#define " file-macro "\n\n"))
+"#define " file-macro "\n\n"))
   (setq guard-end
-	(concat "\n\n#endif//" file-macro "\n"))
+(concat "\n\n#endif//" file-macro "\n"))
   (setq position (point))
   (goto-char (point-min))
   (insert guard-begin)
@@ -109,26 +108,26 @@ original buffer content
 ;;for c/c++ ,just a makefile sample, target name: main
 (defun insert-makefile-cpp ()
   (interactive)
-  (setq makefile_value (concat         
-			"CC = g++\n" 
-			"CCD = g++ -g\n"
-			"TARGET = main\n"
-			"SOURCES = $(wildcard *.cpp)\n"
-			"OBJS = $(patsubst %.cpp,%.o,$(SOURCES))\n"
-			"                                       \n"
-			"%.o:%.cpp\n"
-			"	$(CCD) $(CFLAGS) -c $< -o $@\n"
-			"                                   \n"
+  (setq makefile_value (concat
+"CC = g++\n"
+"CCD = g++ -g\n"
+"TARGET = main\n"
+"SOURCES = $(wildcard *.cpp)\n"
+"OBJS = $(patsubst %.cpp,%.o,$(SOURCES))\n"
+" \n"
+"%.o:%.cpp\n"
+" $(CCD) $(CFLAGS) -c $< -o $@\n"
+" \n"
 
-			"main:$(OBJS)\n"
-			"	$(CC) -O2  $(OBJS) -o $(TARGET)\n"
+"main:$(OBJS)\n"
+" $(CC) -O2 $(OBJS) -o $(TARGET)\n"
 
-			"                                             \n"
-			"d:$(OBJS)\n"
-			"	$(CCD)  $(SOURCES) -o $(TARGET)\n"
-			"                                      \n"
-			"clean: \n"
-			"	@/bin/rm *.o\n"))
+" \n"
+"d:$(OBJS)\n"
+" $(CCD) $(SOURCES) -o $(TARGET)\n"
+" \n"
+"clean: \n"
+" @/bin/rm *.o\n"))
   (setq position (point))
   (goto-char (point-min))
   (insert makefile_value)
@@ -136,26 +135,26 @@ original buffer content
 
 (defun insert-makefile-c ()
   (interactive)
-  (setq makefile_value (concat         
-			"CC = gcc\n" 
-			"CCD = gcc -g\n"
-			"TARGET = main\n"
-			"SOURCES = $(wildcard *.c)\n"
-			"OBJS = $(patsubst %.c,%.o,$(SOURCES))\n"
-			"                                       \n"
-			"%.o:%.c\n"
-			"	$(CCD) $(CFLAGS) -c $< -o $@\n"
-			"                                   \n"
+  (setq makefile_value (concat
+"CC = gcc\n"
+"CCD = gcc -g\n"
+"TARGET = main\n"
+"SOURCES = $(wildcard *.c)\n"
+"OBJS = $(patsubst %.c,%.o,$(SOURCES))\n"
+" \n"
+"%.o:%.c\n"
+" $(CCD) $(CFLAGS) -c $< -o $@\n"
+" \n"
 
-			"main:$(OBJS)\n"
-			"	$(CC) -O2  $(OBJS) -o $(TARGET)\n"
+"main:$(OBJS)\n"
+" $(CC) -O2 $(OBJS) -o $(TARGET)\n"
 
-			"                                             \n"
-			"d:$(OBJS)\n"
-			"	$(CCD)  $(SOURCES) -o $(TARGET)\n"
-			"                                      \n"
-			"clean: \n"
-			"	@/bin/rm *.o\n"))
+" \n"
+"d:$(OBJS)\n"
+" $(CCD) $(SOURCES) -o $(TARGET)\n"
+" \n"
+"clean: \n"
+" @/bin/rm *.o\n"))
   (setq position (point))
   (goto-char (point-min))
   (insert makefile_value)
@@ -166,17 +165,17 @@ original buffer content
 (add-to-list 'load-path "~/.emacs.d/company-0.5")
 (autoload 'company-mode "company" nil t)
 (setq company-idle-delay t)
-;;set 
+;;set
 (setq company-minimum-prefix-length 1)
 
 
 (load-file "~/emacsconfig/emacs.d/cedet-1.0pre7/common/cedet.el")
-(global-ede-mode 1)		; Enable the Project management system
-(semantic-load-enable-code-helpers) ; Enable prototype help and smart completion 
+(global-ede-mode 1) ; Enable the Project management system
+(semantic-load-enable-code-helpers) ; Enable prototype help and smart completion
 (autoload 'senator-try-expand-semantic "senator") ;;默认启动senator　
 
 
-(setq semanticdb-project-roots 
+(setq semanticdb-project-roots
       (list
        (expand-file-name "/")
        (expand-file-name "~/")))
@@ -193,14 +192,14 @@ original buffer content
 
 (setq hippie-expand-try-functions-list
       '(
-	senator-try-expand-semantic
-	try-expand-dabbrev
-	try-expand-dabbrev-visible
-	try-expand-dabbrev-all-buffers
-	try-expand-dabbrev-from-kill
-	try-expand-list
-	try-expand-list-all-buffers
-	try-expand-line
+senator-try-expand-semantic
+try-expand-dabbrev
+try-expand-dabbrev-visible
+try-expand-dabbrev-all-buffers
+try-expand-dabbrev-from-kill
+try-expand-list
+try-expand-list-all-buffers
+try-expand-line
         try-expand-line-all-buffers
         try-complete-file-name-partially
         try-complete-file-name
@@ -219,12 +218,14 @@ original buffer content
 
 (require 'xcscope)
 (add-hook 'c-mode-common-hook
-	  '(lambda ()
-	     (require 'xcscope)))
+'(lambda ()
+(require 'xcscope)))
 (add-hook 'c++-mode-common-hook
-	  '(lambda() 
-	     (require 'xcscope)))
+'(lambda()
+(require 'xcscope)))
 
 
 ;;==================== end programming ===================;
 (provide 'cc-dev-settings)
+
+

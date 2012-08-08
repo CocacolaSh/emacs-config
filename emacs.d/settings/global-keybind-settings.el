@@ -8,12 +8,12 @@
 ;;(global-set-key [(f2)] 'speedbar-get-focus)
 
 ;;把speedbar集成到emacs的frame里,他会在gdb调试时 造成gdb没反应
-;;(require 'sr-speedbar)
-;;(global-set-key [(f2)] 'sr-speedbar-toggle)
+(require 'sr-speedbar)
+(global-set-key [(f2)] 'sr-speedbar-toggle)
 ;;(global-set-key [(f2)] 'sr-speedbar-refresh)
 (require 'speedbar-settings)
 ;;(global-set-key [(f1)] 'speedbar-refresh)
-(global-set-key [(f2)] 'speedbar-get-focus)
+;;(global-set-key [(f2)] 'speedbar-get-focus)
 ;;F3：切换到dired模式
 (global-set-key [(f3)] 'dired)
 
@@ -107,19 +107,58 @@
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
 (add-to-list 'load-path "~/emacsconfig/emacs.d/plugins/ecb")
+
+(defun ecb-expand-methods-nodes2 (&optional force-all)
+  (interactive "P")
+  (let* ((first-node (save-excursion
+                       (goto-char (point-min))
+                       (tree-buffer-get-node-at-point))))
+    (when ecb-expand-methods-switch-off-auto-expand
+      (ecb-toggle-auto-expand-tag-tree -1))
+    (ecb-expand-methods-node-internal (with-current-buffer ecb-methods-buffer-name
+                                         (tree-buffer-get-root))
+                                       10 force-all t t)))
+
 (defun ecba ();需要的时候加载 ecb 和 cedet
   (interactive "")
   (when (locate-library "ecb")
     (require 'ecb-autoloads) ;;加载ecb
-    (setq ecb-auto-activate nil
-	  ecb-tip-of-the-day nil
+    (require 'ecb)
+(ecb-layout-define "my-cscope-layout" left nil
+;;		   (ecb-set-directories-buffer)
+;;		   (ecb-set-sources-buffer)
+;;                   (ecb-split-ver 0.5)
+		   (ecb-set-methods-buffer)
+		   (ecb-split-ver 0.75)
+		   (ecb-set-history-buffer)
+		   ;;(other-window 1)
+                   ;;(select-window (previous-window (selected-window) 0))
+		   ;;(ecb-set-history-buffer)
+                   ;;(ecb-split-ver 0.2)
+                   (other-window 1)
+                   (ecb-split-ver 0.85)
+		   (ecb-set-cscope-buffer))
+(setq ecb-expand-methods-switch-off-auto-expand nil)
+(defecb-window-dedicator ecb-set-cscope-buffer " *ECB cscope-buf*"
+                         (switch-to-buffer "*cscope*"))
+;;(setq ecb-show-sources-in-directories-buffer 'always)
+;;(setq ecb-use-speedbar-instead-native-tree-buffer 'dir)
+;;(setq ecb-use-speedbar-instead-native-tree-buffer 'source)
+(setq ecb-layout-name "my-cscope-layout")
+
+;; Disable buckets so that history buffer can display more entries
+;;(setq ecb-history-make-buckets 'never)
+
+     (setq ecb-auto-activate nil
+          ecb-tip-of-the-day nil
 	  ecb-tree-indent 4
 	  ecb-windows-height 0.5
 	  ecb-windows-width 0.18
 	  ecb-auto-compatibility-check nil
 	  ecb-version-check nil
-	  inhibit-startup-message t))
-;; cedet
+	  inhibit-startup-message t)
+)
+;; cedet;5Q;5Q;5Q
   (when (locate-library "cedet")
     (require 'cedet)
     )

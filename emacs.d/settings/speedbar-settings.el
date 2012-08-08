@@ -45,7 +45,7 @@
         (add-to-list 'speedbar-frame-parameters '(left . 0))
     )
 ) 
-
+(sr-speedbar-refresh-turn-off)
 ;; inhibit tags grouping and sorting 
 (setq speedbar-tag-hierarchy-method '(speedbar-simple-group-tag-hierarchy) ) 
 
